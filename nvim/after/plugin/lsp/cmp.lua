@@ -3,16 +3,6 @@ local lsp = require("lsp-zero")
 local cmp = require("cmp")
 
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-	["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-	["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-	["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
-	["<C-Space>"] = cmp.mapping.complete(),
-})
-
-lsp.setup_nvim_cmp({
-	mapping = cmp_mappings,
-})
 
 lsp.set_preferences({
 	suggest_lsp_servers = false,
@@ -28,3 +18,20 @@ lsp.set_preferences({
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+cmp.setup({
+	sources = {
+		{ name = "nvim_lsp" },
+	},
+	preselect = "item",
+	completion = {
+		completeopt = "menu,menuone,noinsert,noselect",
+	},
+	mapping = {
+		["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+		["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<C-y>"] = cmp.mapping.confirm({ select = false }),
+		["<C-Space>"] = cmp.mapping.complete(),
+	},
+})

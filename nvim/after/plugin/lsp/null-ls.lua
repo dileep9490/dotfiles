@@ -13,6 +13,7 @@ null_ls.setup({
 		formatting.prettierd, -- js/ts formatter
 		formatting.stylua, -- lua formatter
 		formatting.dart_format, -- dart formatter
+		formatting.gofumpt, -- golang formatter
 		diagnostics.eslint_d.with({ -- js/ts linter
 			-- only enable eslint if root has .eslintrc.js
 			condition = function(utils)
